@@ -1,5 +1,6 @@
 import React from 'react';
+import Cars from '../../components/Cars';
 
-const HomePage = () => <div>Home Page</div>;
+const HomePage = () => <Cars />;
 
 export default HomePage;

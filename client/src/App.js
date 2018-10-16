@@ -1,15 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import Routes from './Routes'
+import { ApolloProvider } from 'react-apollo';
+import ApolloClient from 'apollo-boost';
 
-class App extends Component {
-  render() {
-    return (
-      <BrowserRouter>
-        <Routes />
-      </BrowserRouter>
-    );
-  }
-}
+import Routes from './Routes';
+
+const client = new ApolloClient({
+  uri: 'http://localhost:3001/graphql',
+});
+
+const App = () => (
+  <ApolloProvider client={client}>
+    <BrowserRouter>
+      <Routes />
+    </BrowserRouter>
+  </ApolloProvider>
+);
 
 export default App;
