@@ -45,3 +45,4 @@ dump/
 test/integration/db/
 #ENV
 .env
+package-lock.json
