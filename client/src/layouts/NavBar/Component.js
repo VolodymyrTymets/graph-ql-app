@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { routeList } from '../../pages/routes';
 import {
   Collapse,
   Navbar,
@@ -11,20 +13,24 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem } from 'reactstrap';
-
+  DropdownItem
+} from 'reactstrap';
 
 const NavBar = ({ history }) =>
   <Navbar color="light" light expand="md">
-  <NavbarBrand href="/">reactstrap</NavbarBrand>
+    <Link className="navbar-brand" to={routeList.HOME} >Graph QL app </Link>
   <NavbarToggler/>
   <Collapse isOpen={false} navbar>
     <Nav className="ml-auto" navbar>
       <NavItem>
-        <NavLink href="/components/">Components</NavLink>
+        <Link to={routeList.SIGN_IN} >
+          <NavLink>Sign In</NavLink>
+        </Link>
       </NavItem>
       <NavItem>
-        <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+        <Link to={routeList.SIGN_UP} >
+          <NavLink>Sign Up</NavLink>
+        </Link>
       </NavItem>
       <UncontrolledDropdown nav inNavbar>
         <DropdownToggle nav caret>
