@@ -1,16 +1,22 @@
-import { graphql } from 'react-apollo';
-import { compose, withProps } from 'recompose';
-import { renderWhileLoading, renderForError, getFromData } from '../../../utils/recompose-extensions';
+import { compose, withHandlers } from 'recompose';
+import { userMutations} from '../../../modules/User';
+import { renderWhileLoading, withMutation } from '../../../utils/recompose-extensions';
 
 import Component from './Component';
-import { Loader, ErrorMessage } from '../../General';
+import { Loader } from '../../General';
 
 const enhancer = compose(
-  // graphql(carQueries.GET_CARS),
-  // renderWhileLoading(Loader, 'cars'),
-  //renderForError(ErrorMessage),
-  //getFromData('cars'),
-  withProps(console.log)
+  withMutation(userMutations.SIGN_UP, { name: 'signUp' }),
+  renderWhileLoading(Loader, ['loading']),
+  withHandlers({
+    onSubmit: props => e => {
+      e.preventDefault();
+      const email = e.target.email.value.trim();
+      const password = e.target.password.value.trim();
+      console.log(email, password);
+      props.signUp({ variables: { email, password } }).then(console.log)
+    }
+  }),
 );
 
 export default enhancer(Component);

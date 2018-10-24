@@ -1,23 +1,36 @@
 import { pathOr } from 'ramda';
 import React from 'react';
+import { Mutation } from "react-apollo";
 import { branch, renderComponent, withProps } from 'recompose';
 
-const renderWhileLoading = (component, propName = 'data') =>
+const withMutation = (mutation, opts) =>
+  BaseComponent =>
+    (children, ...restProps) => (
+      <Mutation mutation={mutation}>
+        {(mutation, mutationData) => (
+          <BaseComponent {...{[opts.name || 'mutation']: mutation }} {...restProps} {...mutationData}>
+            {children}
+          </BaseComponent>
+        )}
+      </Mutation>
+    );
+
+const renderWhileLoading = (component, fields = ['data', 'loading']) =>
   branch(
-    props => pathOr(false, [propName, 'loading'], props),
+    props => pathOr(false, fields, props),
     renderComponent(component),
   );
 
-const renderForError = (Component, message, propName = 'data') =>
+const renderForError = (Component, message, fields = ['data', 'error']) =>
   branch(
-    props => props[propName] && props[propName].error,
+    props => pathOr(false, fields, props),
     renderComponent(props =>
       (<Component
         message={message}
-        logMessage={pathOr('', [propName, 'error', 'message'], props)}
+        logMessage={pathOr('', ['data', 'error', 'message'], props)}
       />)),
   );
 const getFromData = (from, as) =>
   withProps(({ data }) => ({ [as || from]: pathOr([], [from], data) }));
 
-export { renderWhileLoading, renderForError, getFromData };
+export { renderWhileLoading, renderForError, getFromData, withMutation };

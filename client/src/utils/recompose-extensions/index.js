@@ -1,3 +1,3 @@
-import { renderWhileLoading, renderForError, getFromData } from './graphql';
+import { renderWhileLoading, renderForError, getFromData, withMutation } from './graphql';
 
-export { renderWhileLoading, renderForError, getFromData };
+export { renderWhileLoading, renderForError, getFromData, withMutation };
