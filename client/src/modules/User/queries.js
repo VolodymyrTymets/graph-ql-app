@@ -1,16 +1,25 @@
 import gql from 'graphql-tag';
 
 // language=GraphQL
-const GET_CARS = gql`
+const GET_USER = gql`
+  query getUser($_id: String) {
+    user(_id: $_id) {
+      email
+    }
+  }
+`;
+
+// language=GraphQL
+const GET_CURRENT_USER = gql`
   {
-    cars {
+    currentUser {
       _id,
-      title,
-      description
+      email
     }
   }
 `;
 
 
-export default { GET_CARS };
+
+export default { GET_USER, GET_CURRENT_USER };
 

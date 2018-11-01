@@ -8,9 +8,14 @@ const userSchema = {
   type: userType,
   // `args` describes the arguments that the `user` query accepts
   args: {
-    id: { type: graphql.GraphQLString }
+    _id: { type: graphql.GraphQLString }
   },
-  resolve: (_, args, c) => c.auth.authenticate(_, args, c, userResolver.getUser)
+  resolve: (_, args, context) => context.auth.authenticate(_, args, context, userResolver.getUser)
 };
 
-module.exports = { userSchema, userMutations };
+const currentUserSchema = {
+  type: userType,
+  resolve: (_, args, context) => context.auth.authenticate(_, args, context, userResolver.getCurrentUser)
+};
+
+module.exports = { userSchema, userMutations, currentUserSchema };

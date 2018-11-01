@@ -1,16 +1,29 @@
 import { graphql } from 'react-apollo';
-import { compose, withProps } from 'recompose';
-import { renderWhileLoading, renderForError, getFromData } from '../../../utils/recompose-extensions';
+import { compose, withHandlers } from 'recompose';
+import { userMutations, userQueries } from '../../../modules/User';
+import { authMutations, authQueries } from '../../../modules/Auth';
+import { renderWhileLoading, withMutation } from '../../../utils/recompose-extensions';
+import { setAuthToken } from '../../../utils/authorization'
 
 import Component from './Component';
-import { Loader, ErrorMessage } from '../../General';
 
 const enhancer = compose(
-  // graphql(carQueries.GET_CARS),
-  // renderWhileLoading(Loader, 'cars'),
-  //renderForError(ErrorMessage),
-  //getFromData('cars'),
-  withProps(console.log)
+  graphql(userQueries.GET_USER),
+  withMutation(userMutations.SIGN_IN, { name: 'signIn' }),
+  withHandlers({
+    onSubmit: props => e => {
+      e.preventDefault();
+      const email = e.target.email.value.trim();
+      const password = e.target.password.value.trim();
+      console.log(email, password);
+      props.signIn({
+        variables: { email, password },
+        refetchQueries: userQueries.GET_CURRENT_USER,
+      })
+        .then(({ data }) => setAuthToken(data.signIn))
+        .catch(err => console.log(err))
+    }
+  }),
 );
 
 export default enhancer(Component);

@@ -8,7 +8,7 @@ const withMutation = (mutation, opts) =>
     (children, ...restProps) => (
       <Mutation mutation={mutation}>
         {(mutation, mutationData) => (
-          <BaseComponent {...{[opts.name || 'mutation']: mutation }} {...restProps} {...mutationData}>
+          <BaseComponent {...{[opts.name || 'mutation']: mutation }} {...restProps} {...mutationData} {...children}>
             {children}
           </BaseComponent>
         )}

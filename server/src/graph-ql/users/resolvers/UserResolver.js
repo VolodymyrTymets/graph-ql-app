@@ -13,7 +13,11 @@ class UserResolver {
   }
 
   async getUser(prevNode, args) {
-    const { _id } = args;
+    const { _id } = args
+    return await this.User.findOne({ _id });
+  }
+  async getCurrentUser(prevNode, arg) {
+    console.log(_id)
     return await this.User.findOne({ _id });
   }
 }

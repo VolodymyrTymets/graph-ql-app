@@ -1,11 +1,12 @@
 const graphql = require('graphql');
-const { userSchema, userMutations } = require('./users');
+const { userSchema, userMutations, currentUserSchema } = require('./users');
 const { carSchema, carsSchema } = require('./cars');
 
 // Define the Query type
 const queryType = new graphql.GraphQLObjectType({
   name: 'Query',
   fields: {
+    currentUser: currentUserSchema,
     user: userSchema,
     car: carSchema,
     cars: carsSchema,

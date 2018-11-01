@@ -1364,7 +1364,7 @@ You can also use [`jest.fn()` and `expect(fn).toBeCalled()`](https://facebook.gi
 
 ### Testing Components
 
-There is a broad spectrum of component testing techniques. They range from a “smoke test” verifying that a component renders without throwing, to shallow rendering and testing some of the output, to full rendering and testing component lifecycle and state changes.
+There is a broad spectrum of component testing techniques. They range from a “smoke test” verifying that a component renders without throwing, to shallow rendering and testing some of the output, to full rendering and testing component lifecycle and defaultState changes.
 
 Different projects choose different testing tradeoffs based on how often components change, and how much logic they contain. If you haven’t decided on a testing strategy yet, we recommend that you start with creating simple smoke tests for your components:
 
@@ -1422,7 +1422,7 @@ it('renders without crashing', () => {
 });
 ```
 
-Unlike the previous smoke test using `ReactDOM.render()`, this test only renders `<App>` and doesn’t go deeper. For example, even if `<App>` itself renders a `<Button>` that throws, this test will pass. Shallow rendering is great for isolated unit tests, but you may still want to create some full rendering tests to ensure the components integrate correctly. Enzyme supports [full rendering with `mount()`](http://airbnb.io/enzyme/docs/api/mount.html), and you can also use it for testing state changes and component lifecycle.
+Unlike the previous smoke test using `ReactDOM.render()`, this test only renders `<App>` and doesn’t go deeper. For example, even if `<App>` itself renders a `<Button>` that throws, this test will pass. Shallow rendering is great for isolated unit tests, but you may still want to create some full rendering tests to ensure the components integrate correctly. Enzyme supports [full rendering with `mount()`](http://airbnb.io/enzyme/docs/api/mount.html), and you can also use it for testing defaultState changes and component lifecycle.
 
 You can read the [Enzyme documentation](http://airbnb.io/enzyme/) for more testing techniques. Enzyme documentation uses Chai and Sinon for assertions but you don’t have to use them because Jest provides built-in `expect()` and `jest.fn()` for spies.
 
@@ -1779,9 +1779,9 @@ Use the following [`launch.json`](https://code.visualstudio.com/docs/editor/debu
 Usually, in an app, you have a lot of UI components, and each of them has many different states.
 For an example, a simple button component could have following states:
 
-- In a regular state, with a text label.
+- In a regular defaultState, with a text label.
 - In the disabled mode.
-- In a loading state.
+- In a loading defaultState.
 
 Usually, it’s hard to see these states without running a sample app or some examples.
 
@@ -1884,7 +1884,7 @@ As the comment states, switching `serviceWorker.unregister()` to
 Offline-first Progressive Web Apps are faster and more reliable than traditional web pages, and provide an engaging mobile experience:
 
 - All static site assets are cached so that your page loads fast on subsequent visits, regardless of network connectivity (such as 2G or 3G). Updates are downloaded in the background.
-- Your app will work regardless of network state, even if offline. This means your users will be able to use your app at 10,000 feet and on the subway.
+- Your app will work regardless of network defaultState, even if offline. This means your users will be able to use your app at 10,000 feet and on the subway.
 - On mobile devices, your app can be added directly to the user's home screen, app icon and all. This eliminates the need for the app store.
 
 However, they [can make debugging deployments more challenging](https://github.com/facebook/create-react-app/issues/2398) so, starting with Create React App 2, service workers are opt-in.
@@ -1908,7 +1908,7 @@ following into account:
 controls when updated content ends up being shown to users. In order to guard against
 [race conditions with lazy-loaded content](https://github.com/facebook/create-react-app/issues/3613#issuecomment-353467430),
 the default behavior is to conservatively keep the updated service worker in the "[waiting](https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle#waiting)"
-state. This means that users will end up seeing older content until they close (reloading is not
+defaultState. This means that users will end up seeing older content until they close (reloading is not
 enough) their existing, open tabs. See [this blog post](https://jeffy.info/2018/10/10/sw-in-c-r-a.html)
 for more details about this behavior.
 

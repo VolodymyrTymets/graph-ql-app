@@ -98,7 +98,7 @@ class Authentication {
           };
    * **/
   authenticate(_, params, context, nexResolver) {
-    if(context.user._id) {
+    if(context.user && context.user._id) {
       return nexResolver();
     }
     throw this._getPublicError();
