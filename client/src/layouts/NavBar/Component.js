@@ -16,6 +16,8 @@ import {
   DropdownItem
 } from 'reactstrap';
 
+import CurrentUser from '../../components/Auth/CurrentUser'
+
 const NavBar = ({ history }) =>
   <Navbar color="light" light expand="md">
     <Link className="navbar-brand" to={routeList.HOME} >Graph QL app </Link>
@@ -28,6 +30,9 @@ const NavBar = ({ history }) =>
         </Link>
       </NavItem>
       <NavItem>
+        <Link to={routeList.SIGN_UP} >
+         <CurrentUser />
+        </Link>
         <Link to={routeList.SIGN_UP} >
           <NavLink>Sign Up</NavLink>
         </Link>

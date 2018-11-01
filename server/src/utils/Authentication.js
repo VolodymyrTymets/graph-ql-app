@@ -99,7 +99,7 @@ class Authentication {
    * **/
   authenticate(_, params, context, nexResolver) {
     if(context.user && context.user._id) {
-      return nexResolver();
+      return nexResolver(_, params, context);
     }
     throw this._getPublicError();
   }
@@ -112,7 +112,7 @@ class Authentication {
   async authenticationMiddleware(req, res, next) {
     req.headers.authorization = req.headers.authorization || `Bearer ${req.query.access_token}`;
     try {
-      const user = await jwt.verify(req.headers.authorization, this._config.secretAuthToken);
+      const user = await jwt.verify(req.headers.authorization.replace('Bearer ', ''), this._config.secretAuthToken);
       req.user = user;
       req.next();
     } catch (e) {

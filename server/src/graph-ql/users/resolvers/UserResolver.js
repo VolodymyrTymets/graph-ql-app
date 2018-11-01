@@ -6,6 +6,7 @@ class UserResolver {
     this.User = User;
     this.getUsers = this.getUsers.bind(this);
     this.getUser = this.getUser.bind(this);
+    this.getCurrentUser = this.getCurrentUser.bind(this);
   }
 
   async getUsers() {
@@ -16,9 +17,9 @@ class UserResolver {
     const { _id } = args
     return await this.User.findOne({ _id });
   }
-  async getCurrentUser(prevNode, arg) {
-    console.log(_id)
-    return await this.User.findOne({ _id });
+  async getCurrentUser(prevNode, arg, context) {
+    const { user } = context;
+    return await this.User.findOne({ _id: user._id });
   }
 }
 

@@ -8,7 +8,6 @@ import { setAuthToken } from '../../../utils/authorization'
 import Component from './Component';
 
 const enhancer = compose(
-  graphql(userQueries.GET_USER),
   withMutation(userMutations.SIGN_IN, { name: 'signIn' }),
   withHandlers({
     onSubmit: props => e => {

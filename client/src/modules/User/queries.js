@@ -13,8 +13,7 @@ const GET_USER = gql`
 const GET_CURRENT_USER = gql`
   {
     currentUser {
-      _id,
-      email
+      email,
     }
   }
 `;
