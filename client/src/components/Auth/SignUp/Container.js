@@ -4,6 +4,7 @@ import { renderWhileLoading, withMutation } from '../../../utils/recompose-exten
 
 import Component from './Component';
 import { Loader } from '../../General';
+import { setAuthToken } from "../../../utils/authorization";
 
 const enhancer = compose(
   withMutation(userMutations.SIGN_UP, { name: 'signUp' }),
@@ -13,8 +14,12 @@ const enhancer = compose(
       e.preventDefault();
       const email = e.target.email.value.trim();
       const password = e.target.password.value.trim();
-      console.log(email, password);
-      props.signUp({ variables: { email, password } }).then(console.log)
+      props.signUp({ variables: { email, password } })
+        .then(({ data }) => {
+        setAuthToken(data.signUp);
+        props.history.push(props.routeList.HOME);
+      })
+      .catch(err => console.log(err))
     }
   }),
 );

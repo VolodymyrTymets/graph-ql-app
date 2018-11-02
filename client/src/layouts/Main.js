@@ -1,11 +1,11 @@
 import React  from 'react';
 import NavBar from './NavBar';
 
-const MainLayout = Component => ({ history }) => (
+const MainLayout = (Component, props) => ({ history }) => (
   <div>
-    <NavBar history={history} />
+    <NavBar history={history} {...props} />
     <div className="container-fluid">
-      <Component history={history} />
+      <Component history={history} {...props} />
     </div>
   </div>
 );

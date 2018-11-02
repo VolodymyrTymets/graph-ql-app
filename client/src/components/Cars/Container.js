@@ -17,7 +17,6 @@ const GET_NS = gql`{
 
 const enhancer = compose(
   graphql(GET_NS),
-  withProps(console.log),
   graphql(carQueries.GET_CARS),
   renderWhileLoading(Loader, 'cars'),
   renderForError(ErrorMessage),
